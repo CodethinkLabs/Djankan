@@ -10,7 +10,6 @@ class UserProfile(models.Model):
 
 
 class Board(models.Model):
-    owner = models.ForeignKey(UserProfile)
     title = models.CharField(max_length=200)
     createDate = models.DateTimeField('date created')
     archived = models.BooleanField(default=False)
