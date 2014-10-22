@@ -7,9 +7,9 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         model = User
         fields = ('url', 'username', 'email', 'groups')
 
-class KanbanSerializer(serializers.ModelSerializer):
+class BoardSerializer(serializers.ModelSerializer):
     class Meta:
-            model = Kanban
+            model = Board
 
 class LaneSerializer(serializers.ModelSerializer):
     class Meta:
