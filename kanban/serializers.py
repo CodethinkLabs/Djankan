@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-
+from kanban.models import Board, Lane, Milestone, Bucket, Card, Checklist, TickEvent, Assignees, Permissions
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -9,7 +9,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
 class BoardSerializer(serializers.ModelSerializer):
     class Meta:
-            model = Board
+        model = Board
 
 class LaneSerializer(serializers.ModelSerializer):
     class Meta:
