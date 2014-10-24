@@ -13,11 +13,11 @@ class BoardSerializer(serializers.ModelSerializer):
 
 class LaneSerializer(serializers.ModelSerializer):
     class Meta:
-            model = Lane
+        model = Lane
 
 class MilestoneSerializer(serializers.ModelSerializer):
     class Meta:
-            model = Milestone
+        model = Milestone
 
 class BucketSerializer(serializers.ModelSerializer):
     class Meta:
@@ -25,7 +25,8 @@ class BucketSerializer(serializers.ModelSerializer):
 
 class CardSerializer(serializers.ModelSerializer):
     class Meta:
-            model = Card
+        model = Card
+        fields = ('title', 'description')
 
 class ChecklistSerializer(serializers.ModelSerializer):
     class Meta:

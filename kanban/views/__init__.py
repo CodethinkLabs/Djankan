@@ -1,1 +1,2 @@
-from boards import boardAPIView
+from boards import *
+from cards import *
