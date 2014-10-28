@@ -15,7 +15,6 @@ def boardAPIView(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     elif request.method == 'GET':
-        # return Response(request.QUERY_PARAMS)
         print "GET"
         boards = Board.objects.all()
         serializer = BoardSerializer(boards, many=True)

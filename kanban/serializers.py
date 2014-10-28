@@ -26,7 +26,10 @@ class BucketSerializer(serializers.ModelSerializer):
 class CardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Card
-        fields = ('title', 'description')
+        fields = ('id', 'lane', 'milestone', 'bucket', 'title',
+        'description', 'creator', 'createDate', 'dueDate',
+        'timeEstimate', 'result', 'modifiedDate', 'archived',
+        'position', 'lastUser', 'supersededBy', 'cardNumber')
 
 class ChecklistSerializer(serializers.ModelSerializer):
     class Meta:

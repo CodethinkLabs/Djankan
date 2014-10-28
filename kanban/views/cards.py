@@ -4,13 +4,17 @@ from rest_framework.response import Response
 from kanban.models import *
 from kanban.serializers import *
 from django.http import Http404
+from django.core.exceptions import ObjectDoesNotExist
 
 @api_view(['POST', 'GET'])
 def boardCardAPIView(request, board_id):
     if request.method == 'GET':
-        board = Board.objects.get(id=board_id)
-        lanes = board.lane_set.all()
-        cards = Card.objects.filter(lane_id=lanes)
+        try:
+            board = Board.objects.get(id=board_id)
+            lanes = board.lane_set.all()
+            cards = Card.objects.filter(lane_id=lanes)
+        except ObjectDoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
         serializer = CardSerializer(cards, many=True)
         return Response(serializer.data)
     if request.method == 'POST':
@@ -22,12 +26,15 @@ def boardCardAPIView(request, board_id):
 
 @api_view(['GET', 'PUT'])
 def cardAPIView(request, card_id):
-    if request.method == 'GET':
+    try:
         card = Card.objects.get(id=card_id)
+    except ObjectDoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    if request.method == 'GET':
         serializer = CardSerializer(card)
         return Response(serializer.data)
     if request.method == 'PUT':
-        serializer = CardSerializer(data=request.DATA)
+        serializer = CardSerializer(card, data=request.DATA)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
