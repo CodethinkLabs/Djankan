@@ -16,6 +16,7 @@ milestones = boards+idof('board')+'milestones/'
 buckets = boards+idof('board')+'buckets/'
 lanes = boards+idof('board')+'lanes/'
 cards = boards+idof('board')+'cards/'
+card = v1Prefix+'card/'+idof('card')
 checklist = cards+idof('board')+'checklist/'
 
 urlpatterns = patterns('',
@@ -27,6 +28,6 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
     url(boards+'$',views.boardAPIView),
-    url(cards+'$',views.cardAPIView),
-
+    url(cards+'$',views.boardCardAPIView),
+    url(card+'$',views.cardAPIView),
 )

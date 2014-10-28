@@ -6,7 +6,7 @@ from kanban.serializers import *
 from django.http import Http404
 
 @api_view(['POST', 'GET'])
-def cardAPIView(request, board_id):
+def boardCardAPIView(request, board_id):
     if request.method == 'GET':
         board = Board.objects.get(id=board_id)
         lanes = board.lane_set.all()
@@ -19,3 +19,24 @@ def cardAPIView(request, board_id):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET', 'PUT'])
+def cardAPIView(request, card_id):
+    if request.method == 'GET':
+        card = Card.objects.get(id=card_id)
+        serializer = CardSerializer(card)
+        return Response(serializer.data)
+    if request.method == 'PUT':
+        serializer = CardSerializer(data=request.DATA)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['PUT'])
+def changeCardLaneView(request):
+    serializer = CardSerializer(data=request.DATA)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
