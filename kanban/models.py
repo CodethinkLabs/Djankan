@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from datetime import datetime
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
@@ -11,7 +11,7 @@ class UserProfile(models.Model):
 
 class Board(models.Model):
     title = models.CharField(max_length=200)
-    createDate = models.DateTimeField('date created')
+    createDate = models.DateTimeField(auto_now_add=True, default=datetime.now())
     archived = models.BooleanField(default=False)
     description = models.TextField()
     nextCard = models.IntegerField(default=1)
@@ -78,11 +78,11 @@ class Card(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
     creator = models.ForeignKey(UserProfile)
-    createDate = models.DateTimeField('date created')
+    createDate = models.DateTimeField(auto_now_add=True, default=datetime.now())
     dueDate = models.DateTimeField('date due')
     timeEstimate = models.IntegerField()
     result = models.TextField(blank=True)
-    modifiedDate = models.DateTimeField('date last modified')
+    modifiedDate = models.DateTimeField(auto_now=True, default=datetime.now())
     archived = models.BooleanField(default=False)
     position = models.PositiveIntegerField()
     lastUser = models.ForeignKey(UserProfile, related_name='last_user')
@@ -97,7 +97,7 @@ class Checklist(models.Model):
     card = models.ForeignKey(Card)
     #cardNumber = models.IntegerField()
     description = models.TextField()
-    createDate = models.DateTimeField('date created')
+    createDate = models.DateTimeField(auto_now_add=True, default=datetime.now())
     position = models.PositiveIntegerField()
     deletedDate = models.DateTimeField(blank=True)
 
