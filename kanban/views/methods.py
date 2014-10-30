@@ -13,13 +13,13 @@ def serializer_of(Class):
         (Bucket,BucketSerializer),
         (Card,CardSerializer),
         (Checklist,ChecklistSerializer),
-        (Tick,TickSerializer),
+        (TickEvent,TickEventSerializer),
         (Assignees,AssigneesSerializer),
         (Permissions,PermissionsSerializer),
     ]
-
-    i = zip(*serializer_tuples)[0].index(Class))
-    return serializer_tupes[i][1]
+    
+    a = [item[1] for item in serializer_tuples if Class in item]
+    return a[0]
 
 def post_method(request,Class): 
     serializer_name = serializer_of(Class)
