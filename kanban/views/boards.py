@@ -75,21 +75,21 @@ def boardBucketCardView(request,board_id,bucket_id):
     if request.method == 'GET':
         return get_filter_method(request,Card,'bucket',bucket_id)
 
-@api_view('GET','POST'])
+@api_view(['GET','POST'])
 def boardLanesView(request,board_id):
     if request.method == 'GET':
         return get_by_board(request,Lane,board_id)
     elif request.method == 'POST':
         return post_method(request,Lane)
 
-@api_view('GET','PUT')
+@api_view(['GET','PUT'])
 def boardLaneIDView(request,board_id,lane_id):
     if request.method == 'GET':
         return get_one_method(request,Lane,lane_id)
     elif request.method == 'PUT':
         return put_method(request,Lane,lane_id)
 
-@api_view('GET')
+@api_view(['GET'])
 def boardLaneCardView(request,board_id,lane_id):
     if request.method == 'GET':
         return get_filter_method(request,Card,'lane',lane_id)
