@@ -31,26 +31,42 @@ def post_method(request,Class):
 
 def get_all_method(request,Class):
     serializer_name = serializer_of(Class)
-    q = Class.objects.all()
+    try:
+        q = Class.objects.all()
+    except:
+        content = {'error': 'No matching data'}
+        return Response(content,status=status.HTTP_404_NOT_FOUND)
     serializer = serializer_name(q,many=True)
     return Response(serializer.data)
 
 def get_one_method(request,Class,id):
     serializer_name = serializer_of(Class)
-    q = Class.objects.get(id=id)
+    try:
+        q = Class.objects.get(id=id)
+    except:
+        content = {'error': 'No matching data'}
+        return Response(content, status=status.HTTP_404_NOT_FOUND)
     serializer = serializer_name(q)
     return Response(serializer.data)
 
 def get_filter_method(request,Class,field,filterby):
     serializer_name = serializer_of(Class)
     filter_dict = {field: filterby}
-    q = Class.objects.filter(**filter_dict)
+    try:
+        q = Class.objects.filter(**filter_dict)
+    except:
+        content = {'error': 'No matching data'}
+        return Response(content, status=status.HTTP_404_NOT_FOUND)
     serializer = serializer_name(q,many=True)
     return Response(serializer.data)
 
 def put_method(request,Class,id):
     serializer_name = serializer_of(Class)
-    q = Class.objects.get(id=id)
+    try:
+        q = Class.objects.get(id=id)
+    except:
+        content = {'error': 'No matching data'}
+        return Response(content, status=status.HTTP_404_NOT_FOUND)
     serializer = serializer_name(q,data=request.DATA)
     if serializer.is_valid():
         serializer.save()
