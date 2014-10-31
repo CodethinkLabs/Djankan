@@ -14,13 +14,9 @@ class Board(models.Model):
     createDate = models.DateTimeField(auto_now_add=True, default=datetime.now())
     archived = models.BooleanField(default=False)
     description = models.TextField()
-    nextCard = models.IntegerField(default=1)
 
     def __str__(self):
         return self.title
-
-    def get_nextCard(self):
-        return nextCard
 
 
 class Lane(models.Model):
@@ -69,25 +65,28 @@ class Bucket(models.Model):
     def __str__(self):
         return self.title
 
+class CardHeader(models.Model):
+    cardNumber = models.IntegerField(default=1)
+    createDate = models.DateTimeField(auto_now_add=True, default=datetime.now())
+    creator = models.ForeignKey(UserProfile)
+
 class Card(models.Model):
     # Foreign key links
     lane = models.ForeignKey(Lane)
     milestone = models.ForeignKey(Milestone, blank=True)
     bucket = models.ForeignKey(Bucket, blank=True)
+    lastUser = models.ForeignKey(UserProfile, related_name='last_user')
+    header = models.ForeignKey(CardHeader)
 
     title = models.CharField(max_length=200)
     description = models.TextField()
-    creator = models.ForeignKey(UserProfile)
-    createDate = models.DateTimeField(auto_now_add=True, default=datetime.now())
     dueDate = models.DateTimeField('date due')
     timeEstimate = models.IntegerField()
     result = models.TextField(blank=True)
     modifiedDate = models.DateTimeField(auto_now=True, default=datetime.now())
     archived = models.BooleanField(default=False)
     position = models.PositiveIntegerField()
-    lastUser = models.ForeignKey(UserProfile, related_name='last_user')
     supersededBy = models.IntegerField(blank=True)
-    cardNumber = models.IntegerField()
 
     def __str__(self):
         return self.title

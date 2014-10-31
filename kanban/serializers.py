@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from kanban.models import Board, Lane, Milestone, Bucket, Card, Checklist, TickEvent, Assignees, Permissions
+from kanban.models import *
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -23,13 +23,20 @@ class BucketSerializer(serializers.ModelSerializer):
     class Meta:
             model = Bucket
 
+class CardHeaderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CardHeader
+        fields = ('cardNumber', 'createDate', 'creator')
+
 class CardSerializer(serializers.ModelSerializer):
+    header = CardHeaderSerializer(source='header')
+
     class Meta:
         model = Card
-        fields = ('id', 'lane', 'milestone', 'bucket', 'title',
-        'description', 'creator', 'createDate', 'dueDate',
+        fields = ('header', 'lane', 'milestone',
+        'bucket', 'title', 'description', 'dueDate',
         'timeEstimate', 'result', 'modifiedDate', 'archived',
-        'position', 'lastUser', 'supersededBy', 'cardNumber')
+        'position', 'lastUser', 'supersededBy')
 
 class ChecklistSerializer(serializers.ModelSerializer):
     class Meta:
