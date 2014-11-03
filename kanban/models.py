@@ -22,7 +22,7 @@ class Board(models.Model):
 class Lane(models.Model):
     board = models.ForeignKey(Board)
     title = models.CharField(max_length=200)
-    cardLimit = models.IntegerField(blank=True)
+    cardLimit = models.IntegerField(blank=True, null=True)
     colour = models.CharField(max_length=7)
 
     # define lane_role options
@@ -39,7 +39,7 @@ class Lane(models.Model):
     position = models.PositiveIntegerField()
     inTriageView = models.BooleanField(default=True)
     inKanbanView = models.BooleanField(default=True)
-    deletedDate = models.DateTimeField(auto_now=True, blank=True)
+    deletedDate = models.DateTimeField(auto_now=True, blank=True, null=True)
 
     def __str__(self):
         return self.title
@@ -73,8 +73,8 @@ class CardHeader(models.Model):
 class Card(models.Model):
     # Foreign key links
     lane = models.ForeignKey(Lane)
-    milestone = models.ForeignKey(Milestone, blank=True)
-    bucket = models.ForeignKey(Bucket, blank=True)
+    milestone = models.ForeignKey(Milestone, blank=True, null=True)
+    bucket = models.ForeignKey(Bucket, blank=True, null=True)
     lastUser = models.ForeignKey(UserProfile, related_name='last_user')
     header = models.ForeignKey(CardHeader)
 
@@ -82,11 +82,11 @@ class Card(models.Model):
     description = models.TextField()
     dueDate = models.DateTimeField('date due')
     timeEstimate = models.IntegerField()
-    result = models.TextField(blank=True)
+    result = models.TextField(blank=True, null=True)
     modifiedDate = models.DateTimeField(auto_now=True, default=datetime.now())
     archived = models.BooleanField(default=False)
     position = models.PositiveIntegerField()
-    supersededBy = models.IntegerField(blank=True)
+    supersededBy = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
         return self.title
@@ -98,7 +98,7 @@ class Checklist(models.Model):
     description = models.TextField()
     createDate = models.DateTimeField(auto_now_add=True, default=datetime.now())
     position = models.PositiveIntegerField()
-    deletedDate = models.DateTimeField(blank=True)
+    deletedDate = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
         return self.title
