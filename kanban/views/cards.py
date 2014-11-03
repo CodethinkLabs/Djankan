@@ -5,6 +5,10 @@ from kanban.models import *
 from kanban.serializers import *
 from django.http import Http404
 from django.core.exceptions import ObjectDoesNotExist
+from methods import *
+
+def get_by_card(request,Class,card_id):
+    return get_filter_method(request,Class,'card',card_id)
 
 @api_view(['POST', 'GET'])
 def boardCardAPIView(request, board_id):
@@ -47,3 +51,17 @@ def changeCardLaneView(request):
         serializer.save()
         return Response(serializer.data)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET','POST'])
+def cardAssigneesView(request, card_id):
+    if request.method == 'GET':
+        return get_by_card(request,Assignees,card_id)
+    elif request.method == 'POST':
+        return post_method(request,Assignees)
+
+@api_view(['GET','POST'])
+def cardChecklistsView(request, card_id):
+    if request.method == 'GET':
+        return get_by_card(request,Checklist,card_id)
+    elif request.method == 'POST':
+        return post_method(request,Checklist)

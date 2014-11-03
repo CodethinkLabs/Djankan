@@ -17,8 +17,8 @@ buckets = boards+idof('board')+'buckets/'
 lanes = boards+idof('board')+'lanes/'
 cards = boards+idof('board')+'cards/'
 card = v1Prefix+'card/'+idof('card')
-checklists = boards+idof('board')+'checklists/'
-assignees = boards+idof('board')+'assignees/'
+checklists = card+'checklists/'
+assignees = card+'assignees/'
 
 urlpatterns = patterns('',
 
@@ -41,8 +41,8 @@ urlpatterns = patterns('',
     url(lanes+'$',views.boardLanesView),
     url(lanes+idof('lane')+'$',views.boardLaneIDView),
     url(lanes+idof('lane')+'cards/$',views.boardLaneCardView),
-    url(checklists+'$',views.boardChecklistsView),
-    url(assignees+'$',views.boardAssigneesView),
+    url(checklists+'$',views.cardChecklistsView),
+    url(assignees+'$',views.cardAssigneesView),
     url(cards+'$',views.boardCardAPIView),
     url(card+'$',views.cardAPIView),
 )
