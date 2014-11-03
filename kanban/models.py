@@ -70,6 +70,9 @@ class CardHeader(models.Model):
     createDate = models.DateTimeField(auto_now_add=True, default=datetime.now())
     creator = models.ForeignKey(UserProfile)
 
+    def __str__(self):
+        return "Card Number: " + str(self.cardNumber)
+
 class Card(models.Model):
     # Foreign key links
     lane = models.ForeignKey(Lane)
