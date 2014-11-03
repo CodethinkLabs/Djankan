@@ -93,3 +93,18 @@ def boardLaneIDView(request,board_id,lane_id):
 def boardLaneCardView(request,board_id,lane_id):
     if request.method == 'GET':
         return get_filter_method(request,Card,'lane',lane_id)
+
+@api_view(['GET','POST'])
+def boardAssigneesView(request,board_id):
+    if request.method == 'GET':
+        return get_by_board(request,Assignees,board_id)
+    elif request.method == 'POST':
+        return post_method(request,Assignees)
+
+@api_view(['GET','POST'])
+def boardChecklistsView(request,board_id):
+    if request.method == 'GET':
+        return get_by_board(request,Checklist,board_id)
+    elif request.method == 'POST':
+        return post_method(request,Checklist)
+
