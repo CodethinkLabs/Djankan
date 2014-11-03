@@ -50,7 +50,7 @@ def get_one_method(request, Class, id):
     except ObjectDoesNotExist:
         content = {'error': 'No matching data'}
         return Response(content, status=status.HTTP_404_NOT_FOUND)
-    serializer = serializer_name(instances)
+    serializer = serializer_name(instance)
     return Response(serializer.data)
 
 
