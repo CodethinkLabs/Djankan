@@ -28,6 +28,7 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
 
+    url(users+'$',views.userAPIView),
     url(boards+'$',views.boardAPIView),
     url(boards+idof('board')+'$',views.boardIDView),
     url(boards+idof('board')+'roles/$',views.boardRolesView),

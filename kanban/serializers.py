@@ -2,10 +2,10 @@ from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 from kanban.models import *
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('url', 'username', 'email', 'groups')
+        fields = ('id','username', 'email')
 
 class BoardSerializer(serializers.ModelSerializer):
     class Meta:
