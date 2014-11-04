@@ -32,7 +32,7 @@ def cardAPIView(request, card_id):
     if request.method == 'GET':
         return get_one_method(request, Card, card_id)
     elif request.method == 'PUT':
-        return put_method(request, Card)
+        return put_method(request, Card, card_id)
 
 
 @api_view(['GET', 'POST'])
