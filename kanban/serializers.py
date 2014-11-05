@@ -33,7 +33,7 @@ class CardSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Card
-        fields = ('header', 'lane', 'milestone',
+        fields = ('id','header', 'lane', 'milestone',
         'bucket', 'title', 'description', 'dueDate',
         'timeEstimate', 'result', 'modifiedDate', 'archived',
         'position', 'lastUser', 'supersededBy')
