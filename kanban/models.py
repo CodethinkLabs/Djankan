@@ -104,7 +104,7 @@ class Checklist(models.Model):
     deletedDate = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
-        return self.title
+        return str(self.description)
 
 
 class TickEvent(models.Model):
@@ -128,7 +128,7 @@ class Assignees(models.Model):
                                      default='NORM')
 
     def __str__(self):
-        return self.person
+        return str(self.person)
 
 
 class Permissions(models.Model):
