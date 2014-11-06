@@ -15,12 +15,38 @@ def get_by_card(request, Class, card_id):
 @api_view(['POST', 'GET'])
 def boardCardAPIView(request, board_id):
     if request.method == 'GET':
+        milestone = request.QUERY_PARAMS.get('milestone', None)
+        bucket = request.QUERY_PARAMS.get('bucket', None)
+        archived_flag = request.QUERY_PARAMS.get('archived', None)
         try:
             board = Board.objects.get(id=board_id)
-            lanes = board.lane_set.all()
-            cards = Card.objects.filter(lane_id=lanes)
         except ObjectDoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
+        lanes = board.lane_set.all()
+        if milestone is not None:
+            try:
+                cards = Card.objects.filter(lane_id=lanes, milestone_id=milestone)
+            except ValueError:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+            if not cards:
+                return Response(status=status.HTTP_404_NOT_FOUND)
+        elif bucket is not None:
+            try:
+                cards = Card.objects.filter(lane_id=lanes, bucket_id=bucket)
+            except ValueError:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+            if not cards:
+                return Response(status=status.HTTP_404_NOT_FOUND)
+        elif archived_flag is not None:
+            archived_flag = archived_flag.upper()
+            if archived_flag == "FALSE":
+                cards = Card.objects.filter(lane_id=lanes, archived=False)
+            elif archived_flag == "TRUE":
+                cards = Card.objects.filter(lane_id=lanes, archived=True)
+            else:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+        else:
+            cards = Card.objects.filter(lane_id=lanes)
         serializer = CardSerializer(cards, many=True)
         return Response(serializer.data)
     if request.method == 'POST':
