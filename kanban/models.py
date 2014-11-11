@@ -117,7 +117,7 @@ class TickEvent(models.Model):
 class Assignees(models.Model):
     card = models.ForeignKey(Card)
     person = models.ForeignKey(UserProfile)
-    timeAssigned = models.DateTimeField('assignment time')
+    timeAssigned = models.DateTimeField(auto_now_add=True, default=datetime.now())
 
     ASSIGNEE_ROLE = (
         ('NORM', 'Normal'),
