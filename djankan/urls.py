@@ -19,6 +19,7 @@ cards = boards+idof('board')+'cards/'
 card = v1Prefix+'card/'+idof('card')
 checklists = card+'checklists/'
 assignees = card+'assignees/'
+assignee = v1Prefix+'assignee/'+idof('assignee')
 
 urlpatterns = patterns('',
 
@@ -46,4 +47,5 @@ urlpatterns = patterns('',
     url(assignees+'$',views.cardAssigneesView),
     url(cards+'$',views.boardCardAPIView),
     url(card+'$',views.cardAPIView),
+    url(assignee+'$',views.assigneeView),
 )
