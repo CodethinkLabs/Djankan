@@ -13,7 +13,7 @@ def serializer_of(Class):
         (Lane, LaneSerializer),
         (Milestone, MilestoneSerializer),
         (Bucket, BucketSerializer),
-        (Card, CardSerializer),
+        (Card, CardInSerializer), #serializer for POST and PUT not GET
         (Checklist, ChecklistSerializer),
         (TickEvent, TickEventSerializer),
         (Assignees, AssigneesSerializer),

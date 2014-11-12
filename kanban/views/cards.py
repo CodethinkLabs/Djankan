@@ -47,7 +47,7 @@ def boardCardAPIView(request, board_id):
                 return Response(status=status.HTTP_400_BAD_REQUEST)
         else:
             cards = Card.objects.filter(lane_id=lanes)
-        serializer = CardSerializer(cards, many=True)
+        serializer = CardOutSerializer(cards, many=True)
         return Response(serializer.data)
     if request.method == 'POST':
         return post_method(request, Card)
@@ -56,7 +56,14 @@ def boardCardAPIView(request, board_id):
 @api_view(['GET', 'PUT'])
 def cardAPIView(request, card_id):
     if request.method == 'GET':
-        return get_one_method(request, Card, card_id)
+        try:
+            instance = Card.objects.get(id=card_id)
+        except ObjectDoesNotExist:
+            content = {'error': 'No matching data'}
+            return Response(content, status=status.HTTP_404_NOT_FOUND)
+        serializer = CardOutSerializer(instance)
+        return Response(serializer.data)
+
     elif request.method == 'PUT':
         return put_method(request, Card, card_id)
 

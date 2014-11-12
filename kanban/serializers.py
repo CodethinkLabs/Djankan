@@ -28,12 +28,30 @@ class CardHeaderSerializer(serializers.ModelSerializer):
         model = CardHeader
         fields = ('cardNumber', 'createDate', 'creator')
 
-class CardSerializer(serializers.ModelSerializer):
+# serializer adds board field when client gets card
+class CardOutSerializer(serializers.ModelSerializer):
+    header = CardHeaderSerializer(source='header')
+    board = serializers.SerializerMethodField('getBoard')
+
+    class Meta:
+        model = Card
+        fields = ('id','header','board','lane', 'milestone',
+        'bucket', 'title', 'description', 'dueDate',
+        'timeEstimate', 'result', 'modifiedDate', 'archived',
+        'position', 'lastUser', 'supersededBy')
+
+    def getBoard(self,obj):
+        return obj.lane.board.id;
+
+# remove the board field when client puts or posts card - this should
+# not be in the model because it leaves it open in inconsitency if the
+# lane does not belong to the board the card belongs to
+class CardInSerializer(serializers.ModelSerializer):
     header = CardHeaderSerializer(source='header')
 
     class Meta:
         model = Card
-        fields = ('id','header', 'lane', 'milestone',
+        fields = ('id','header','lane', 'milestone',
         'bucket', 'title', 'description', 'dueDate',
         'timeEstimate', 'result', 'modifiedDate', 'archived',
         'position', 'lastUser', 'supersededBy')
