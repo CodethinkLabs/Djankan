@@ -28,11 +28,16 @@ from django.http import Http404
 from methods import *
 
 
-@api_view(['DELETE'])
+@api_view(['GET', 'PUT','DELETE'])
 def assigneeView(request, assignee_id):
-    try:
-        assignee = Assignees.objects.get(id=assignee_id)
-    except ObjectDoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-    assignee.delete()
-    return Response(status=status.HTTP_200_OK)
+    if request.method == 'GET':
+        return get_one_method(request, Assignee, assignee_id)
+    elif request.method == 'PUT':
+        return put_method(request, Assignee, assignee_id)
+    elif request.method == 'DELETE':
+        try:
+            assignee = Assignees.objects.get(id=assignee_id)
+        except ObjectDoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        assignee.delete()
+        return Response(status=status.HTTP_200_OK)

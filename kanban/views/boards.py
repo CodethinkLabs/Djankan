@@ -45,7 +45,7 @@ def boardIDView(request, board_id):
     if request.method == 'GET':
         return get_one_method(request, Board, board_id)
     elif request.method == 'PUT':
-        return post_method(request, Board)
+        return put_method(request, Board)
 
 
 @api_view(['GET', 'POST'])

@@ -41,6 +41,9 @@ card = v1Prefix+'card/'+idof('card')
 checklists = card+'checklists/'
 assignees = card+'assignees/'
 assignee = v1Prefix+'assignee/'+idof('assignee')
+lane = v1Prefix+'lane/'+idof('lane')
+bucket = v1Prefix+'bucket/'+idof('bucket')
+milestone = v1Prefix+'milestone/'+idof('milestone')
 
 urlpatterns = patterns('',
 
@@ -69,4 +72,7 @@ urlpatterns = patterns('',
     url(cards+'$',views.boardCardAPIView),
     url(card+'$',views.cardAPIView),
     url(assignee+'$',views.assigneeView),
+    url(lane+'$',views.laneView),
+    url(bucket+'$',views.bucketView),
+    url(milestone+'$',views.milestoneView),
 )

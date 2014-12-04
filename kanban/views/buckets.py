@@ -29,19 +29,19 @@ from methods import *
 
 
 @api_view(['GET', 'PUT','DELETE'])
-def milestoneView(request, milestone_id):
+def bucketView(request, bucket_id):
     if request.method == 'GET':
-        return get_one_method(request, Milestone, milestone_id)
+        return get_one_method(request, Bucket, bucket_id)
     elif request.method == 'PUT':
-        return put_method(request, Milestone, milestone_id)
+        return put_method(request, Bucket, bucket_id)
     elif request.method == 'DELETE':
         try:
-            milestone = Milestone.objects.get(id=milestone_id)
+            bucket = Bucket.objects.get(id=bucket_id)
         except ObjectDoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
-        # if can't find any cards in this milestone delete else 400
-        cards_in_milestone = Card.objects.filter(milestone=milestone_id)
-        if cards_in_milestone:
+        # if can't find any cards in this bucket delete else 400
+        cards_in_bucket = Card.objects.filter(bucket=bucket_id)
+        if cards_in_bucket:
             return Response(status=status.HTTP_403_FORBIDDEN)
-        milestone.delete()
+        bucket.delete()
         return Response(status=status.HTTP_200_OK)

@@ -75,7 +75,6 @@ def get_one_method(request, Class, id):
     serializer = serializer_name(instance)
     return Response(serializer.data)
 
-
 def get_filter_method(request, Class, field, filterby):
     serializer_name = serializer_of(Class)
     filter_dict = {field: filterby}
