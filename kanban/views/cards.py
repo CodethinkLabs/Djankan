@@ -94,7 +94,13 @@ def cardAssigneesView(request, card_id):
     if request.method == 'GET':
         return get_by_card(request, Assignees, card_id)
     elif request.method == 'POST':
-        return post_method(request, Assignees)
+        print("request.DATA[u'person']: ",request.DATA[u'person'])
+        try:
+            instance = Assignees.objects.get(card=card_id,person=request.DATA[u'person'])
+            content = {'error': 'Assignment already exists'}
+            return Response(content,status=status.HTTP_403_FORBIDDEN)
+        except ObjectDoesNotExist:
+            return post_method(request, Assignees)
 
 
 @api_view(['GET', 'POST'])
