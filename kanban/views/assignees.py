@@ -32,8 +32,6 @@ from methods import *
 def assigneeView(request, assignee_id):
     if request.method == 'GET':
         return get_one_method(request, Assignee, assignee_id)
-    elif request.method == 'PUT':
-        return put_method(request, Assignee, assignee_id)
     elif request.method == 'DELETE':
         try:
             assignee = Assignees.objects.get(id=assignee_id)
