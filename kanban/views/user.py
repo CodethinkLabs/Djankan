@@ -27,7 +27,9 @@ from kanban.serializers import *
 from django.http import Http404
 from methods import *
 
-@api_view(['GET'])
+@api_view(['GET','POST'])
 def userAPIView(request):
     if request.method == 'GET':
         return get_all_method(request, User)
+    elif request.method == 'POST':
+        return post_method(request, User)
