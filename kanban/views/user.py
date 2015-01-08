@@ -33,3 +33,10 @@ def userAPIView(request):
         return get_all_method(request, User)
     elif request.method == 'POST':
         return post_method(request, User)
+
+@api_view(['GET','POST'])
+def userProfileAPIView(request):
+    if request.method == 'GET':
+        return get_all_method(request, UserProfile)
+    elif request.method == 'POST':
+        return post_method(request, UserProfile)

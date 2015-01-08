@@ -54,6 +54,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
     url(users+'$',views.userAPIView),
+    url(users+'profile/$',views.userProfileAPIView),
     url(boards+'$',views.boardAPIView),
     url(boards+idof('board')+'$',views.boardIDView),
     url(boards+idof('board')+'roles/$',views.boardRolesView),

@@ -30,6 +30,7 @@ from django.core.exceptions import ObjectDoesNotExist
 def serializer_of(Class):
     serializer_tuples = [
         (User, UserSerializer),
+        (UserProfile, UserProfileSerializer),
         (Board, BoardSerializer),
         (Lane, LaneSerializer),
         (Milestone, MilestoneSerializer),
